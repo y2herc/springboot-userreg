@@ -1,30 +1,35 @@
 package com.hbokhari.demo;
-import javax.servlet.http.HttpServletRequest;
+
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
 
 @Controller
-public class GreetingController {
+public class GreetingController extends WebMvcConfigurerAdapter {
 
-    @RequestMapping(value="/greeting",method=RequestMethod.GET)
-    public String helloform() {
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/greeting").setViewName("greeting");
+    }
 
+    @GetMapping("/")
+    public String showForm(User personForm) {
         return "helloform";
     }
-	@RequestMapping(value="/greeting",method=RequestMethod.POST)
-    public String greeting(HttpServletRequest request, Model model) {
-		
-		String name =request.getParameter("name");
-		String password=request.getParameter("password");
-		
-		
-		
-        model.addAttribute("name", name);
-        model.addAttribute("password", password);
-        
-        return "greeting";
-    }
 
+    @PostMapping("/")
+    public String checkPersonInfo(@Valid User personForm, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "helloform";
+        }
+
+        return "redirect:/greeting";
+    }
 }
