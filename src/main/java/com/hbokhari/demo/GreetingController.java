@@ -48,9 +48,9 @@ public class GreetingController extends WebMvcConfigurerAdapter {
 
 	        }
 
-/*		
+		
         model.addAttribute("name", name);
-        model.addAttribute("password", password);*/
+        model.addAttribute("password", password);
         
        return "greeting"; 
     }
