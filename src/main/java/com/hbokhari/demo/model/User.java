@@ -1,4 +1,4 @@
-package com.hbokhari.demo;
+package com.hbokhari.demo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

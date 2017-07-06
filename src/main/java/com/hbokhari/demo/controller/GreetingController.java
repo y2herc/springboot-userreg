@@ -1,30 +1,24 @@
-package com.hbokhari.demo;
+package com.hbokhari.demo.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.hbokhari.demo.model.User;
+import com.hbokhari.demo.service.UserService;
 
 
 @Controller
-@EnableAutoConfiguration
-public class GreetingController extends WebMvcConfigurerAdapter {
+public class GreetingController  {
 	
 	@Autowired
 	private UserService userService;
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/greeting").setViewName("greeting");
-    }
 
     @GetMapping("/")
     public String showForm(User personForm) {
@@ -47,7 +41,6 @@ public class GreetingController extends WebMvcConfigurerAdapter {
 	        } catch (Exception e) {
 
 	        }
-
 		
         model.addAttribute("name", name);
         model.addAttribute("password", password);
