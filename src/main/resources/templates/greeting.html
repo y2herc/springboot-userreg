@@ -5,8 +5,10 @@
      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
  </head>
  <body>
-     <h3 th:text="'Username: ' + ${name}" ></h3>
-     <h3 th:text="'Password: ' + ${password}" ></h3>
-     
+     <h3 th:text="'Username: ' + ${name}+' Registered Successfully'" ></h3>
+     <script>
+    document.write('<a href="' + document.referrer + '">Go Back</a>');
+</script>
+
  </body>
  </html> 

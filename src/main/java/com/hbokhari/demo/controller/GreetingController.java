@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import com.hbokhari.demo.service.UserService;
 
 
 @Controller
+@EnableAutoConfiguration
 public class GreetingController  {
 	
 	@Autowired
@@ -35,16 +37,20 @@ public class GreetingController  {
         String name =request.getParameter("name");
 		String password=request.getParameter("password");
 		
-		 try {
-	            User user = new User(name,password);
-	            userService.create(user);
-	        } catch (Exception e) {
+		if(userService.userExists(name))
+			return "useralreadyexists";
 
-	        }
+		else
+			try {
+		            User user = new User(name,password);
+		            userService.create(user);
+		        } catch (Exception e) {
+	
+		        }
 		
-        model.addAttribute("name", name);
-        model.addAttribute("password", password);
-        
-       return "greeting"; 
+	        model.addAttribute("name", name);
+	        model.addAttribute("password", password);
+	        
+	        return "greeting"; 
     }
 }    

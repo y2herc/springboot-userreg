@@ -11,7 +11,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="Userdb")
+@Table(name="User_db")
 public class User {
 
     @Id
@@ -21,7 +21,7 @@ public class User {
     @NotNull	
     @Size(min=5,max=12)
     @Pattern(regexp = "[A-Za-z0-9]+$",message="must be alphanumeric")
-    @Column(name="user_name")
+    @Column(name="user_name",unique=true)
     private String name;
 	
 	@NotNull	
@@ -67,5 +67,4 @@ public String toString() {
 	return "User [name=" + name + ", password=" + password + "]";
 }
 	
-
 }
